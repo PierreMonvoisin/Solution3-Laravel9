@@ -2,40 +2,30 @@ let startTime;
 let elapsedTime = 0;
 let timerInterval;
 
-const timerDisplay = document.getElementById("timer");
-const startStopButton = document.getElementById("start-stop");
-const resetButton = document.getElementById("reset");
+const timerDisplay = document.querySelector("#timer");
+const actionButton = document.querySelector("#action");
 
 function startTimer() {
     startTime = Date.now() - elapsedTime;
-    timerInterval = setInterval(updateTimer, 10);
-    startStopButton.textContent = "Stop";
+    timerInterval = setInterval(updateTimer, 1);
+    actionButton.textContent = "Stop";
 }
 
 function stopTimer() {
     clearInterval(timerInterval);
-    startStopButton.textContent = "Start";
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    elapsedTime = 0;
-    timerDisplay.textContent = "0.00";
-    startStopButton.textContent = "Start";
+    actionButton.textContent = "Start";
 }
 
 function updateTimer() {
     const elapsedMilliseconds = Date.now() - startTime;
     elapsedTime = elapsedMilliseconds / 1000;
-    timerDisplay.textContent = elapsedTime.toFixed(2);
+    timerDisplay.textContent = elapsedTime.toFixed(3);
 }
 
-startStopButton.addEventListener("click", function() {
-    if (startStopButton.textContent === "Start") {
+actionButton.addEventListener("click", function() {
+    if (actionButton.textContent === "Start") {
         startTimer();
     } else {
         stopTimer();
     }
 });
-
-resetButton.addEventListener("click", resetTimer);
