@@ -11,6 +11,7 @@
     </div>
 
     <x-slot name="scripts">
+        <script src="{{ asset('js/timer-helpers.js') }}"></script>
         <script src="{{ asset('js/timer.js') }}"></script>
     </x-slot>
 </x-app-layout>

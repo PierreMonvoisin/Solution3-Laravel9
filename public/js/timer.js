@@ -26,38 +26,10 @@ function updateTime() {
     seconds %= 60;
     minutes %= 60;
 
-    displayTime(hours, minutes, seconds);
+    timerDisplay.textContent = stringifyTime(hours, minutes, seconds);
 }
 
-function formatTime(milliseconds) {
-    let seconds = milliseconds / 1000;
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(seconds / 3600);
-
-    return [hours, minutes, seconds];
-}
-
-function displayTime(hours, minutes, seconds) {
-    let displayText = '';
-    if (hours > 0) {
-        displayText += `${hours.toString().padStart(2, '0')}:`;
-    }
-    if (minutes > 0 || hours > 0) {
-        displayText += `${minutes.toString().padStart(2, '0')}:`;
-    }
-    displayText += seconds.toFixed(3).padStart(6, '0');
-
-    timerDisplay.textContent = displayText;
-}
-function toggleTimer() {
-    if (actionButton.textContent === 'Start') {
-        startTimer();
-    } else {
-        stopTimer();
-    }
-}
-
-// ADD EVENTS LISTENERS //
+// EVENTS LISTENERS
 // Toggle Timer on click or spacebar press
 actionButton.addEventListener('click', toggleTimer);
 document.addEventListener('keydown', function(event) {
@@ -65,9 +37,4 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault();
         toggleTimer();
     }
-});
-
-// Display empty time on page load
-window.addEventListener('load', function() {
-    displayTime(0,0,0);
 });
