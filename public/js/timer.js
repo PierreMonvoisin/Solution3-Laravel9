@@ -1,14 +1,14 @@
-// Proprieties
+// PROPRIETIES
 let startTime;
-let elapsedTime = 0;
 let timerInterval;
+let timePassed;
 
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
 
-// Methods
+// METHODS
 function startTimer() {
-    startTime = Date.now() - elapsedTime;
+    startTime = Date.now();
     timerInterval = setInterval(updateTime, 1);
     actionButton.textContent = 'Stop';
 }
@@ -19,7 +19,7 @@ function stopTimer() {
 }
 
 function updateTime() {
-    const timePassed = Date.now() - startTime;
+    timePassed = Date.now() - startTime;
 
     let [hours, minutes, seconds] = formatTime(timePassed);
 
@@ -49,15 +49,25 @@ function displayTime(hours, minutes, seconds) {
 
     timerDisplay.textContent = displayText;
 }
-
-// Add events listeners
-actionButton.addEventListener('click', function() {
+function toggleTimer() {
     if (actionButton.textContent === 'Start') {
         startTimer();
     } else {
         stopTimer();
     }
+}
+
+// ADD EVENTS LISTENERS //
+// Toggle Timer on click or spacebar press
+actionButton.addEventListener('click', toggleTimer);
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space') {
+        event.preventDefault();
+        toggleTimer();
+    }
 });
+
+// Display empty time on page load
 window.addEventListener('load', function() {
     displayTime(0,0,0);
 });
