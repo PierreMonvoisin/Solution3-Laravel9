@@ -8,7 +8,7 @@ $classes = ($active ?? false)
 
 <a
     {{ $attributes->merge([
-        'class' => $classes . 'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out',
+        'class' => $classes . 'inline-flex items-center px-1 pt-1 border-b-2 font-medium leading-5 transition duration-150 ease-in-out',
     ]) }}>
     {{ $slot }}
 </a>
