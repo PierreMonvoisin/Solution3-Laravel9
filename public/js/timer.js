@@ -1,3 +1,4 @@
+// Proprieties
 let startTime;
 let elapsedTime = 0;
 let timerInterval;
@@ -5,9 +6,10 @@ let timerInterval;
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
 
+// Methods
 function startTimer() {
     startTime = Date.now() - elapsedTime;
-    timerInterval = setInterval(updateTimer, 1);
+    timerInterval = setInterval(updateTime, 1);
     actionButton.textContent = 'Stop';
 }
 
@@ -16,15 +18,26 @@ function stopTimer() {
     actionButton.textContent = 'Start';
 }
 
-function updateTimer() {
+function updateTime() {
     const timePassed = Date.now() - startTime;
-    let seconds = timePassed / 1000;
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(seconds / 3600);
+
+    let [hours, minutes, seconds] = formatTime(timePassed);
 
     seconds %= 60;
     minutes %= 60;
 
+    displayTime(hours, minutes, seconds);
+}
+
+function formatTime(milliseconds) {
+    let seconds = milliseconds / 1000;
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(seconds / 3600);
+
+    return [hours, minutes, seconds];
+}
+
+function displayTime(hours, minutes, seconds) {
     let displayText = '';
     if (hours > 0) {
         displayText += `${hours.toString().padStart(2, '0')}:`;
@@ -37,10 +50,14 @@ function updateTimer() {
     timerDisplay.textContent = displayText;
 }
 
+// Add events listeners
 actionButton.addEventListener('click', function() {
     if (actionButton.textContent === 'Start') {
         startTimer();
     } else {
         stopTimer();
     }
+});
+window.addEventListener('load', function() {
+    displayTime(0,0,0);
 });
