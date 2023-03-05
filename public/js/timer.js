@@ -1,41 +1,44 @@
-let startTime;
-let elapsedTime = 0;
-let timerInterval;
+// PROPRIETIES
+let startTime = 0;
+let timer;
+let timerTimeout = 1;
+let timePassed = 0;
+let timesStorage = [];
 
-const timerDisplay = document.getElementById("timer");
-const startStopButton = document.getElementById("start-stop");
-const resetButton = document.getElementById("reset");
+const timerDisplay = document.querySelector('#timer');
+const actionButton = document.querySelector('#action');
+const messageDisplay = document.querySelector('#message');
 
+// METHODS
 function startTimer() {
-    startTime = Date.now() - elapsedTime;
-    timerInterval = setInterval(updateTimer, 10);
-    startStopButton.textContent = "Stop";
+    startTime = Date.now();
+    timer = setInterval(updateTime, timerTimeout);
+    actionButton.textContent = 'Stop';
 }
 
 function stopTimer() {
-    clearInterval(timerInterval);
-    startStopButton.textContent = "Start";
+    clearInterval(timer);
+    storeTime(timePassed);
+    actionButton.textContent = 'Start';
 }
 
-function resetTimer() {
-    clearInterval(timerInterval);
-    elapsedTime = 0;
-    timerDisplay.textContent = "0.00";
-    startStopButton.textContent = "Start";
+function updateTime() {
+    timePassed = Date.now() - startTime;
+
+    let [hours, minutes, seconds] = formatTime(timePassed);
+
+    seconds %= 60;
+    minutes %= 60;
+
+    timerDisplay.textContent = stringifyTime(hours, minutes, seconds);
 }
 
-function updateTimer() {
-    const elapsedMilliseconds = Date.now() - startTime;
-    elapsedTime = elapsedMilliseconds / 1000;
-    timerDisplay.textContent = elapsedTime.toFixed(2);
-}
-
-startStopButton.addEventListener("click", function() {
-    if (startStopButton.textContent === "Start") {
-        startTimer();
-    } else {
-        stopTimer();
+// EVENTS LISTENERS
+// Toggle Timer on click or spacebar press
+actionButton.addEventListener('click', toggleTimer);
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space') {
+        event.preventDefault();
+        toggleTimer();
     }
 });
-
-resetButton.addEventListener("click", resetTimer);
