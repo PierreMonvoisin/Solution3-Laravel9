@@ -1,20 +1,24 @@
 // PROPRIETIES
-let startTime;
-let timerInterval;
-let timePassed;
+let startTime = 0;
+let timer;
+let timerTimeout = 1;
+let timePassed = 0;
+let timesStorage = [];
 
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
+const messageDisplay = document.querySelector('#message');
 
 // METHODS
 function startTimer() {
     startTime = Date.now();
-    timerInterval = setInterval(updateTime, 1);
+    timer = setInterval(updateTime, timerTimeout);
     actionButton.textContent = 'Stop';
 }
 
 function stopTimer() {
-    clearInterval(timerInterval);
+    clearInterval(timer);
+    storeTime(timePassed);
     actionButton.textContent = 'Start';
 }
 

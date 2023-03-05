@@ -1,4 +1,12 @@
 // METHODS
+function toggleTimer() {
+    if (actionButton.textContent === 'Start') {
+        startTimer();
+    } else {
+        stopTimer();
+    }
+}
+
 function formatTime(milliseconds) {
     let seconds = milliseconds / 1000;
     let minutes = Math.floor(seconds / 60);
@@ -18,12 +26,9 @@ function stringifyTime(hours, minutes, seconds) {
     return displayText + seconds.toFixed(3).padStart(6, '0');
 }
 
-function toggleTimer() {
-    if (actionButton.textContent === 'Start') {
-        startTimer();
-    } else {
-        stopTimer();
-    }
+function storeTime(timeInMilli) {
+    timesStorage.push(timeInMilli);
+    messageDisplay.textContent = `[${timesStorage.toString()}]`;
 }
 
 // EVENTS LISTENERS //

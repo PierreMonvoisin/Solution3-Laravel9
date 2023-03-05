@@ -5,6 +5,7 @@
                 <div class="p-6 text-gray-900 text-center">
                     <div id="timer">00.000</div>
                     <button id="action">Start</button>
+                    <div id="message">...</div>
                 </div>
             </div>
         </div>
