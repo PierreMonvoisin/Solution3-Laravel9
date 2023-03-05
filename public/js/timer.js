@@ -6,6 +6,7 @@ let timePassed = 0;
 let timesStorage = [];
 
 // DOM elements
+const scrambleDisplay = document.querySelector('#scramble');
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
 const messageDisplay = document.querySelector('#message');
@@ -74,7 +75,7 @@ function storeTime(timeInMilli) {
     timesStorage.push(timeInMilli);
     calculateAverages(timesStorage);
 
-    console.log(`timesList => [${timesStorage.toString()}]`);
+    // console.log(`timesList => [${timesStorage.toString()}]`);
 }
 
 // Events listeners
@@ -89,6 +90,7 @@ document.addEventListener('keydown', function(event) {
 // Display empty time on page load
 window.addEventListener('load', function() {
     displayTime(0, 'timer');
+    displayScramble( generateScramble() );
 });
 function toggleTimer() {
     if (actionButton.textContent === 'Start') {
