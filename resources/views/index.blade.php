@@ -7,6 +7,7 @@
                     <button id="action">Start</button>
                     <div id="message">...</div>
                     <div id="Ao5-message">Average of 5 : <span id="Ao5">00.000</span></div>
+                    <div id="Ao12-message">Average of 12 : <span id="Ao12">00.000</span></div>
                 </div>
             </div>
         </div>
@@ -14,5 +15,6 @@
 
     <x-slot name="scripts">
         <script src="{{ asset('js/timer.js') }}"></script>
+        <script src="{{ asset('js/averages.js') }}"></script>
     </x-slot>
 </x-app-layout>

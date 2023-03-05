@@ -10,36 +10,42 @@ const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
 const messageDisplay = document.querySelector('#message');
 const Ao5Display = document.querySelector('#Ao5');
+const Ao12Display = document.querySelector('#Ao12');
+const displayLocations = {
+    'message': messageDisplay,
+    'timer': timerDisplay,
+    'Ao5': Ao5Display,
+    'Ao12': Ao12Display,
+};
 
 // Methods
 function startTimer() {
     startTime = Date.now();
     timer = setInterval(updateTime, timerTimeout);
+
     actionButton.textContent = 'Stop';
 }
 
 function stopTimer() {
     clearInterval(timer);
     storeTime(timePassed);
-    calculateAverages(timesStorage);
+
     actionButton.textContent = 'Start';
 }
 
 function updateTime() {
     timePassed = Date.now() - startTime;
 
-    let [hours, minutes, seconds] = formatTime(timePassed);
-
-    seconds %= 60;
-    minutes %= 60;
-
-    timerDisplay.textContent = stringifyTime([hours, minutes, seconds]);
+    displayTime(timePassed, 'timer');
 }
 
 function formatTime(milliseconds) {
     let seconds = milliseconds / 1000;
     let minutes = Math.floor(seconds / 60);
     let hours = Math.floor(seconds / 3600);
+
+    seconds %= 60;
+    minutes %= 60;
 
     return [hours, minutes, seconds];
 }
@@ -58,39 +64,16 @@ function stringifyTime([hours, minutes, seconds]) {
 function displayTime(time, location) {
     const stringTime = stringifyTime(formatTime(time));
 
-    switch (location) {
-        case 'timer':
-            timerDisplay.textContent = stringTime;
-            break;
-
-        case 'message':
-            messageDisplay.textContent = stringTime;
-            break;
-
-        case 'Ao5':
-            Ao5Display.textContent = stringTime;
+    if (displayLocations[location]) {
+        displayLocations[location].textContent = stringTime;
     }
-    return stringifyTime(formatTime(time));
 }
 
 function storeTime(timeInMilli) {
     timesStorage.push(timeInMilli);
-    messageDisplay.textContent = `[${timesStorage.toString()}]`;
-}
+    calculateAverages(timesStorage);
 
-function calculateAverages(timesList) {
-    let Ao5 = 0;
-    let Ao12 = 0;
-
-    if (timesList.length >= 5) {
-        const Ao5Array = timesList.slice(-5);
-        const maxTime = Math.max(...Ao5Array);
-        const minTime = Math.min(...Ao5Array);
-        const filteredAo5Array = Ao5Array.filter(num => num !== maxTime && num !== minTime);
-        const Ao5Sum = filteredAo5Array.reduce((acc, curr) => acc + curr, 0);
-        Ao5 = Math.floor(Ao5Sum / filteredAo5Array.length);
-        displayTime(Ao5, 'Ao5');
-    }
+    console.log(`timesList => [${timesStorage.toString()}]`);
 }
 
 // Events listeners
