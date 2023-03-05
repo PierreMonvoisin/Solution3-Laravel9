@@ -6,7 +6,6 @@
                     <div id="scramble"></div>
                     <div id="timer">00.000</div>
                     <button id="action">Start</button>
-                    <div id="message">...</div>
                     <div id="Ao5-message">Average of 5 : <span id="Ao5">--</span></div>
                     <div id="Ao12-message">Average of 12 : <span id="Ao12">--</span></div>
                 </div>

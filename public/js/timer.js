@@ -9,11 +9,9 @@ let timesStorage = [];
 const scrambleDisplay = document.querySelector('#scramble');
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
-const messageDisplay = document.querySelector('#message');
 const Ao5Display = document.querySelector('#Ao5');
 const Ao12Display = document.querySelector('#Ao12');
 const displayLocations = {
-    'message': messageDisplay,
     'timer': timerDisplay,
     'Ao5': Ao5Display,
     'Ao12': Ao12Display,
