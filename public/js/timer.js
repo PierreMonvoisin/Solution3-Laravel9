@@ -8,6 +8,7 @@ let timesStorage = [];
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
 const messageDisplay = document.querySelector('#message');
+const Ao5Display = document.querySelector('#Ao5');
 
 // METHODS
 function startTimer() {
@@ -19,6 +20,7 @@ function startTimer() {
 function stopTimer() {
     clearInterval(timer);
     storeTime(timePassed);
+    calculateAverages(timesStorage);
     actionButton.textContent = 'Start';
 }
 
@@ -30,7 +32,7 @@ function updateTime() {
     seconds %= 60;
     minutes %= 60;
 
-    timerDisplay.textContent = stringifyTime(hours, minutes, seconds);
+    timerDisplay.textContent = stringifyTime([hours, minutes, seconds]);
 }
 
 // EVENTS LISTENERS

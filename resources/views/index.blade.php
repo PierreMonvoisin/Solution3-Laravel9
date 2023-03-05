@@ -6,6 +6,7 @@
                     <div id="timer">00.000</div>
                     <button id="action">Start</button>
                     <div id="message">...</div>
+                    <div id="Ao5-message">Average of 5 : <span id="Ao5">00.000</span></div>
                 </div>
             </div>
         </div>
