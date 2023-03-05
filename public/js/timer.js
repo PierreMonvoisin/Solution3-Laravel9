@@ -62,10 +62,11 @@ function stringifyTime([hours, minutes, seconds]) {
 }
 
 function displayTime(time, location) {
-    const stringTime = stringifyTime(formatTime(time));
-
     if (displayLocations[location]) {
-        displayLocations[location].textContent = stringTime;
+        displayLocations[location].textContent =
+            stringifyTime(
+                formatTime(time)
+            );
     }
 }
 
