@@ -14,18 +14,22 @@ function calculateAverages(timesList) {
         }
     }
 
-    displayTime(Ao5, 'Ao5');
-    displayTime(Ao12, 'Ao12');
+    displayTime(Ao5, Ao5Display);
+    displayTime(Ao12, Ao12Display);
 }
 function calculateAverage(timesArray) {
-    const maxTime = Math.max(...timesArray);
-    const minTime = Math.min(...timesArray);
+    const [maxTime, minTime] = [Math.max(...timesArray), Math.min(...timesArray)];
 
     const filteredArray =
         timesArray.filter(num =>
             num !== maxTime &&
             num !== minTime
         );
+
+    if (filteredArray.length === 0) {
+        return 0;
+    }
+
     const sum =
         filteredArray.reduce((acc, curr) =>
             acc + curr,
