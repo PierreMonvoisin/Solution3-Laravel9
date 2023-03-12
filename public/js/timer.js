@@ -59,7 +59,10 @@ function stringifyTime([hours, minutes, seconds]) {
 
 function displayTime(time, location) {
     if (location) {
-        location.textContent = stringifyTime(formatTime(time));
+        location.textContent =
+            time !== '--' ?
+                stringifyTime(formatTime(time)) :
+                time;
     }
 }
 
