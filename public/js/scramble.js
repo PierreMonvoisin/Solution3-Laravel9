@@ -39,10 +39,13 @@ function generateScramble() {
         }
 
         let randomChance = Number(Math.random().toFixed(3));
+        console.log(randomChance);
         if (doubledChance > randomChance) {
             suffix = '2';
         } else if (primedChance > randomChance) {
             suffix = '\'';
+        } else {
+            suffix = '';
         }
 
         scramble += move + suffix + ' ';
@@ -56,6 +59,10 @@ function generateScramble() {
 
 function displayScramble(scramble) {
     scrambleDisplay.textContent = scramble;
+}
+
+function generateAndDisplayScramble() {
+    displayScramble(generateScramble());
 }
 
 function areOpposites(currentMove, previousMove) {

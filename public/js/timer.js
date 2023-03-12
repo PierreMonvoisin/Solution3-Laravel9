@@ -24,6 +24,7 @@ function startTimer() {
 function stopTimer() {
     clearInterval(timer);
     recordTime(timePassed);
+    generateAndDisplayScramble();
 
     actionButton.textContent = 'Start';
 }
@@ -81,7 +82,7 @@ document.addEventListener('keydown', function(event) {
 // Display empty time on page load
 window.addEventListener('load', function() {
     displayTime(0, timerDisplay);
-    displayScramble( generateScramble() );
+    generateAndDisplayScramble();
 });
 function toggleTimer() {
     if (actionButton.textContent === 'Start') {
