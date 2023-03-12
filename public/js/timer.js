@@ -72,7 +72,7 @@ function recordTime(timeInMilli) {
 }
 
 // Events listeners
-const timerHoldPeriod = 300;
+const timerHoldPeriod = 350;
 
 let timerStatus = 'ready';
 let timerHold;
