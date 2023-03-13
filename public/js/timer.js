@@ -9,7 +9,6 @@ let timePassed = 0;
 // DOM elements
 const scrambleDisplay = document.querySelector('#scramble');
 const timerDisplay = document.querySelector('#timer');
-const actionButton = document.querySelector('#action');
 const Ao5Display = document.querySelector('#Ao5');
 const Ao12Display = document.querySelector('#Ao12');
 
@@ -17,16 +16,12 @@ const Ao12Display = document.querySelector('#Ao12');
 function startTimer() {
     startTime = Date.now();
     timer = setInterval(updateTime, timerTimeout);
-
-    actionButton.textContent = 'Stop';
 }
 
 function stopTimer() {
     clearInterval(timer);
     recordTime(timePassed);
     generateAndDisplayScramble();
-
-    actionButton.textContent = 'Start';
 }
 
 function updateTime() {
@@ -75,7 +70,6 @@ function recordTime(timeInMilli) {
 let timerStatus = STATUS_READY;
 let timerHold;
 // Toggle Timer on click or spacebar press
-actionButton.addEventListener('click', toggleTimer);
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
