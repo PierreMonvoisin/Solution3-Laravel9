@@ -61,6 +61,7 @@ function displayTime(time, location) {
 
 function recordTime(timeInMilli) {
     timesStorage.push(timeInMilli);
+
     let [Ao5, Ao12] = calculateAverages(timesStorage);
 
     let solve = {
@@ -70,6 +71,7 @@ function recordTime(timeInMilli) {
         'Ao5': Ao5,
         'Ao12': Ao12,
     }
+
     storeSolve(solve);
 }
 
