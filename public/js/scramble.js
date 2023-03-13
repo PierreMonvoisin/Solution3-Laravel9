@@ -1,3 +1,6 @@
+// Proprieties
+let currentScramble = '';
+
 // Methods
 function generateScramble() {
     // Constant
@@ -34,6 +37,8 @@ function generateScramble() {
         }
 
         scramble += move + suffix + ' ';
+
+        currentScramble = scramble;
 
         penultimateMove = previousMove;
         previousMove = move;

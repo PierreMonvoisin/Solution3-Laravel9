@@ -62,6 +62,19 @@ function displayTime(time, location) {
 function recordTime(timeInMilli) {
     timesStorage.push(timeInMilli);
     let [Ao5, Ao12] = calculateAverages(timesStorage);
+
+    let solve = {
+        'user_id': USER_ID,
+        'scramble': currentScramble,
+        'time': timeInMilli,
+        'Ao5': Ao5,
+        'Ao12': Ao12,
+    }
+    storeSolve(solve);
+}
+
+function storeSolve(solve) {
+    console.log(solve['user_id']);
 }
 
 // Events listeners
