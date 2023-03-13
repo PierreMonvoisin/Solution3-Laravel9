@@ -76,7 +76,25 @@ function recordTime(timeInMilli) {
 }
 
 function storeSolve(solve) {
-    console.log(solve);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: '/solves/store',
+        method: 'POST',
+        data: {
+            solve: solve,
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error(textStatus, errorThrown);
+        }
+    });
 }
 
 // Events listeners

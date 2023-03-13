@@ -13,6 +13,8 @@
     </div>
 
     <x-slot name="scripts">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script src="{{ asset('js/constants.js') }}"></script>
         <script>
             const USER_ID = {{ auth()->user()->id }};

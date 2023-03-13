@@ -14,7 +14,6 @@ use App\Http\Controllers\SolvesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('index');
@@ -24,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('solves', SolvesController::class);
 });
+Route::resource('solves', SolvesController::class);
 
 require __DIR__.'/auth.php';
