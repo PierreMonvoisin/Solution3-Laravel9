@@ -16,8 +16,8 @@ function calculateAverages(timesList) {
 
     [Ao5, Ao12] = formatNullTimes([Ao5, Ao12]);
 
-    displayTime(Ao5, Ao5Display);
-    displayTime(Ao12, Ao12Display);
+    displayTime(Ao5, AO5_DISPLAY);
+    displayTime(Ao12, AO12_DISPLAY);
 }
 function calculateAverage(timesArray) {
     const [maxTime, minTime] = [Math.max(...timesArray), Math.min(...timesArray)];

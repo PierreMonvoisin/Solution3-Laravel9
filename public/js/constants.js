@@ -20,5 +20,11 @@ const MAX_LENGTH = 25;
 const PRIMED_CHANCE = 0.25;
 const DOUBLED_CHANCE = 0.125;
 
+// DOM Elements
+const SCRAMBLE_DISPLAY = document.querySelector('#scramble');
+const TIMER_DISPLAY = document.querySelector('#timer');
+const AO5_DISPLAY = document.querySelector('#Ao5');
+const AO12_DISPLAY = document.querySelector('#Ao12');
+
 
 

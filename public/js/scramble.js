@@ -43,7 +43,7 @@ function generateScramble() {
 }
 
 function displayScramble(scramble) {
-    scrambleDisplay.textContent = scramble;
+    SCRAMBLE_DISPLAY.textContent = scramble;
 }
 
 function generateAndDisplayScramble() {

@@ -6,12 +6,6 @@ let startTime = 0;
 let timer;
 let timePassed = 0;
 
-// DOM elements
-const scrambleDisplay = document.querySelector('#scramble');
-const timerDisplay = document.querySelector('#timer');
-const Ao5Display = document.querySelector('#Ao5');
-const Ao12Display = document.querySelector('#Ao12');
-
 // Methods
 function startTimer() {
     startTime = Date.now();
@@ -27,7 +21,7 @@ function stopTimer() {
 function updateTime() {
     timePassed = Date.now() - startTime;
 
-    displayTime(timePassed, timerDisplay);
+    displayTime(timePassed, TIMER_DISPLAY);
 }
 
 function formatTime(milliseconds) {
@@ -76,11 +70,11 @@ document.addEventListener('keydown', function(event) {
         // If timer is idle
         if (timerStatus === STATUS_READY) {
             timerStatus = STATUS_HOLDING;
-            timerDisplay.style.color = 'red';
+            TIMER_DISPLAY.style.color = 'red';
             // Wait for timer to be set
             timerHold = setTimeout(function(){
                 timerStatus = STATUS_SET;
-                timerDisplay.style.color = 'green';
+                TIMER_DISPLAY.style.color = 'green';
             }, HOLD_PERIOD);
         // If timer is running, stop it
         } else if (timerStatus === STATUS_RUNNING) {
@@ -104,12 +98,12 @@ document.addEventListener('keyup', function (event) {
             clearTimeout(timerHold);
             timerStatus = STATUS_READY;
         }
-        timerDisplay.style.color = 'black';
+        TIMER_DISPLAY.style.color = 'black';
     }
 })
 // Display empty time on page load
 window.addEventListener('load', function() {
-    displayTime(0, timerDisplay);
+    displayTime(0, TIMER_DISPLAY);
     generateAndDisplayScramble();
 });
 function toggleTimer() {
