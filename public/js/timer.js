@@ -1,22 +1,17 @@
 // Proprieties
+const timerTimeout = 1;
+const timesStorage = [];
+
 let startTime = 0;
 let timer;
-let timerTimeout = 1;
 let timePassed = 0;
-let timesStorage = [];
 
 // DOM elements
+const scrambleDisplay = document.querySelector('#scramble');
 const timerDisplay = document.querySelector('#timer');
 const actionButton = document.querySelector('#action');
-const messageDisplay = document.querySelector('#message');
 const Ao5Display = document.querySelector('#Ao5');
 const Ao12Display = document.querySelector('#Ao12');
-const displayLocations = {
-    'message': messageDisplay,
-    'timer': timerDisplay,
-    'Ao5': Ao5Display,
-    'Ao12': Ao12Display,
-};
 
 // Methods
 function startTimer() {
@@ -28,7 +23,8 @@ function startTimer() {
 
 function stopTimer() {
     clearInterval(timer);
-    storeTime(timePassed);
+    recordTime(timePassed);
+    generateAndDisplayScramble();
 
     actionButton.textContent = 'Start';
 }
@@ -36,7 +32,7 @@ function stopTimer() {
 function updateTime() {
     timePassed = Date.now() - startTime;
 
-    displayTime(timePassed, 'timer');
+    displayTime(timePassed, timerDisplay);
 }
 
 function formatTime(milliseconds) {
@@ -62,19 +58,16 @@ function stringifyTime([hours, minutes, seconds]) {
 }
 
 function displayTime(time, location) {
-    if (displayLocations[location]) {
-        displayLocations[location].textContent =
-            stringifyTime(
-                formatTime(time)
-            );
+    if (location) {
+        location.textContent = stringifyTime(formatTime(time));
     }
 }
 
-function storeTime(timeInMilli) {
+function recordTime(timeInMilli) {
     timesStorage.push(timeInMilli);
     calculateAverages(timesStorage);
 
-    console.log(`timesList => [${timesStorage.toString()}]`);
+    // console.log(`timesList => [${timesStorage.toString()}]`);
 }
 
 // Events listeners
@@ -88,7 +81,8 @@ document.addEventListener('keydown', function(event) {
 });
 // Display empty time on page load
 window.addEventListener('load', function() {
-    displayTime(0, 'timer');
+    displayTime(0, timerDisplay);
+    generateAndDisplayScramble();
 });
 function toggleTimer() {
     if (actionButton.textContent === 'Start') {
