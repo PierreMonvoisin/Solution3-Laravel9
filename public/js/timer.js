@@ -74,7 +74,7 @@ function recordTime(timeInMilli) {
 }
 
 function storeSolve(solve) {
-    console.log(solve['user_id']);
+    console.log(solve);
 }
 
 // Events listeners
