@@ -72,9 +72,7 @@ function recordTime(timeInMilli) {
 }
 
 // Events listeners
-const timerHoldPeriod = 350;
-
-let timerStatus = 'ready';
+let timerStatus = STATUS_READY;
 let timerHold;
 // Toggle Timer on click or spacebar press
 actionButton.addEventListener('click', toggleTimer);
@@ -82,21 +80,21 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         // If timer is idle
-        if (timerStatus === 'ready') {
-            timerStatus = 'waiting';
+        if (timerStatus === STATUS_READY) {
+            timerStatus = STATUS_HOLDING;
             timerDisplay.style.color = 'red';
             // Wait for timer to be set
             timerHold = setTimeout(function(){
-                timerStatus = 'set';
+                timerStatus = STATUS_SET;
                 timerDisplay.style.color = 'green';
-            }, timerHoldPeriod);
+            }, HOLD_PERIOD);
         // If timer is running, stop it
-        } else if (timerStatus === 'running') {
+        } else if (timerStatus === STATUS_RUNNING) {
             toggleTimer();
         }
     }
     // Any key can stop the timer
-    if (timerStatus === 'running') {
+    if (timerStatus === STATUS_RUNNING) {
         toggleTimer();
     }
 
@@ -105,12 +103,12 @@ document.addEventListener('keyup', function (event) {
     if (event.code === 'Space') {
         event.preventDefault();
 
-        if (timerStatus === 'set') {
+        if (timerStatus === STATUS_SET) {
             clearTimeout(timerHold);
             toggleTimer();
-        } else if (timerStatus === 'waiting') {
+        } else if (timerStatus === STATUS_HOLDING) {
             clearTimeout(timerHold);
-            timerStatus = 'ready';
+            timerStatus = STATUS_READY;
         }
         timerDisplay.style.color = 'black';
     }
@@ -121,11 +119,11 @@ window.addEventListener('load', function() {
     generateAndDisplayScramble();
 });
 function toggleTimer() {
-    if (actionButton.textContent === 'Start') {
+    if (timerStatus !== STATUS_RUNNING) {
         startTimer();
-        timerStatus = 'running';
+        timerStatus = STATUS_RUNNING;
     } else {
         stopTimer();
-        timerStatus = 'ready';
+        timerStatus = STATUS_READY;
     }
 }

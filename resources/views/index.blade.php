@@ -14,6 +14,7 @@
     </div>
 
     <x-slot name="scripts">
+        <script src="{{ asset('js/constants.js') }}"></script>
         <script src="{{ asset('js/timer.js') }}"></script>
         <script src="{{ asset('js/averages.js') }}"></script>
         <script src="{{ asset('js/scramble.js') }}"></script>
