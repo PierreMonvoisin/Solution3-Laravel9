@@ -48,16 +48,20 @@ function stringifyTime([hours, minutes, seconds]) {
 
 function displayTime(time, location) {
     if (location) {
-        location.textContent =
-            time !== '--' ?
+        const timeString =
+            time !== 0 ?
                 stringifyTime(formatTime(time)) :
                 time;
+
+        location === TIMER_DISPLAY ?
+            location.textContent = stringifyTime(formatTime(time)) :
+            location.textContent = formatNullTime(timeString);
     }
 }
 
 function recordTime(timeInMilli) {
     timesStorage.push(timeInMilli);
-    calculateAverages(timesStorage);
+    let [Ao5, Ao12] = calculateAverages(timesStorage);
 }
 
 // Events listeners
