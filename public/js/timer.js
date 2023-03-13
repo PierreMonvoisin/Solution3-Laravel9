@@ -59,26 +59,62 @@ function stringifyTime([hours, minutes, seconds]) {
 
 function displayTime(time, location) {
     if (location) {
-        location.textContent = stringifyTime(formatTime(time));
+        location.textContent =
+            time !== '--' ?
+                stringifyTime(formatTime(time)) :
+                time;
     }
 }
 
 function recordTime(timeInMilli) {
     timesStorage.push(timeInMilli);
     calculateAverages(timesStorage);
-
-    // console.log(`timesList => [${timesStorage.toString()}]`);
 }
 
 // Events listeners
+const timerHoldPeriod = 350;
+
+let timerStatus = 'ready';
+let timerHold;
 // Toggle Timer on click or spacebar press
 actionButton.addEventListener('click', toggleTimer);
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
+        // If timer is idle
+        if (timerStatus === 'ready') {
+            timerStatus = 'waiting';
+            timerDisplay.style.color = 'red';
+            // Wait for timer to be set
+            timerHold = setTimeout(function(){
+                timerStatus = 'set';
+                timerDisplay.style.color = 'green';
+            }, timerHoldPeriod);
+        // If timer is running, stop it
+        } else if (timerStatus === 'running') {
+            toggleTimer();
+        }
+    }
+    // Any key can stop the timer
+    if (timerStatus === 'running') {
         toggleTimer();
     }
+
 });
+document.addEventListener('keyup', function (event) {
+    if (event.code === 'Space') {
+        event.preventDefault();
+
+        if (timerStatus === 'set') {
+            clearTimeout(timerHold);
+            toggleTimer();
+        } else if (timerStatus === 'waiting') {
+            clearTimeout(timerHold);
+            timerStatus = 'ready';
+        }
+        timerDisplay.style.color = 'black';
+    }
+})
 // Display empty time on page load
 window.addEventListener('load', function() {
     displayTime(0, timerDisplay);
@@ -87,7 +123,9 @@ window.addEventListener('load', function() {
 function toggleTimer() {
     if (actionButton.textContent === 'Start') {
         startTimer();
+        timerStatus = 'running';
     } else {
         stopTimer();
+        timerStatus = 'ready';
     }
 }

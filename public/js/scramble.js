@@ -39,7 +39,6 @@ function generateScramble() {
         }
 
         let randomChance = Number(Math.random().toFixed(3));
-        console.log(randomChance);
         if (doubledChance > randomChance) {
             suffix = '2';
         } else if (primedChance > randomChance) {

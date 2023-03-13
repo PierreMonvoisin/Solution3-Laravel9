@@ -14,6 +14,8 @@ function calculateAverages(timesList) {
         }
     }
 
+    [Ao5, Ao12] = formatNullTimes([Ao5, Ao12]);
+
     displayTime(Ao5, Ao5Display);
     displayTime(Ao12, Ao12Display);
 }
@@ -37,4 +39,10 @@ function calculateAverage(timesArray) {
         );
 
     return Math.floor(sum / filteredArray.length);
+}
+
+function formatNullTimes(averages) {
+    return averages.map(function (average) {
+        return average === 0 ? '--' : average;
+    });
 }
