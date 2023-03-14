@@ -6,33 +6,22 @@ let startTime = 0;
 let timer;
 let timePassed = 0;
 
-// DOM elements
-const scrambleDisplay = document.querySelector('#scramble');
-const timerDisplay = document.querySelector('#timer');
-const actionButton = document.querySelector('#action');
-const Ao5Display = document.querySelector('#Ao5');
-const Ao12Display = document.querySelector('#Ao12');
-
 // Methods
 function startTimer() {
     startTime = Date.now();
     timer = setInterval(updateTime, timerTimeout);
-
-    actionButton.textContent = 'Stop';
 }
 
 function stopTimer() {
     clearInterval(timer);
     recordTime(timePassed);
     generateAndDisplayScramble();
-
-    actionButton.textContent = 'Start';
 }
 
 function updateTime() {
     timePassed = Date.now() - startTime;
 
-    displayTime(timePassed, timerDisplay);
+    displayTime(timePassed, TIMER_DISPLAY);
 }
 
 function formatTime(milliseconds) {
@@ -59,44 +48,74 @@ function stringifyTime([hours, minutes, seconds]) {
 
 function displayTime(time, location) {
     if (location) {
-        location.textContent =
-            time !== '--' ?
+        const timeString =
+            time !== 0 ?
                 stringifyTime(formatTime(time)) :
                 time;
+
+        location === TIMER_DISPLAY ?
+            location.textContent = stringifyTime(formatTime(time)) :
+            location.textContent = formatNullTime(timeString);
     }
 }
 
 function recordTime(timeInMilli) {
     timesStorage.push(timeInMilli);
-    calculateAverages(timesStorage);
+
+    let [Ao5, Ao12] = calculateAverages(timesStorage);
+
+    let solve = {
+        'user_id': USER_ID,
+        'scramble': currentScramble,
+        'time': timeInMilli,
+        'average_of_5': Ao5,
+        'average_of_12': Ao12,
+    }
+
+    storeSolve(solve);
+}
+
+function storeSolve(solve) {
+    $.ajax({
+        url: '/solves',
+        method: 'POST',
+        data: {
+            solve: solve,
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(jqXHR) {
+            console.error('Status:', jqXHR.status);
+            console.error('Message:', jqXHR.responseJSON.message);
+            console.error('Errors:', jqXHR.responseJSON.errors);
+        }
+    });
 }
 
 // Events listeners
-const timerHoldPeriod = 350;
-
-let timerStatus = 'ready';
+let timerStatus = STATUS_READY;
 let timerHold;
-// Toggle Timer on click or spacebar press
-actionButton.addEventListener('click', toggleTimer);
+// Toggle Timer on spacebar press
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         // If timer is idle
-        if (timerStatus === 'ready') {
-            timerStatus = 'waiting';
-            timerDisplay.style.color = 'red';
+        if (timerStatus === STATUS_READY) {
+            timerStatus = STATUS_HOLDING;
+            TIMER_DISPLAY.style.color = 'red';
             // Wait for timer to be set
             timerHold = setTimeout(function(){
-                timerStatus = 'set';
-                timerDisplay.style.color = 'green';
-            }, timerHoldPeriod);
+                timerStatus = STATUS_SET;
+                TIMER_DISPLAY.style.color = 'green';
+            }, HOLD_PERIOD);
         // If timer is running, stop it
-        } else if (timerStatus === 'running') {
+        } else if (timerStatus === STATUS_RUNNING) {
             toggleTimer();
         }
     }
     // Any key can stop the timer
-    if (timerStatus === 'running') {
+    if (timerStatus === STATUS_RUNNING) {
         toggleTimer();
     }
 
@@ -105,27 +124,27 @@ document.addEventListener('keyup', function (event) {
     if (event.code === 'Space') {
         event.preventDefault();
 
-        if (timerStatus === 'set') {
+        if (timerStatus === STATUS_SET) {
             clearTimeout(timerHold);
             toggleTimer();
-        } else if (timerStatus === 'waiting') {
+        } else if (timerStatus === STATUS_HOLDING) {
             clearTimeout(timerHold);
-            timerStatus = 'ready';
+            timerStatus = STATUS_READY;
         }
-        timerDisplay.style.color = 'black';
+        TIMER_DISPLAY.style.color = 'black';
     }
 })
 // Display empty time on page load
 window.addEventListener('load', function() {
-    displayTime(0, timerDisplay);
+    displayTime(0, TIMER_DISPLAY);
     generateAndDisplayScramble();
 });
 function toggleTimer() {
-    if (actionButton.textContent === 'Start') {
+    if (timerStatus !== STATUS_RUNNING) {
         startTimer();
-        timerStatus = 'running';
+        timerStatus = STATUS_RUNNING;
     } else {
         stopTimer();
-        timerStatus = 'ready';
+        timerStatus = STATUS_READY;
     }
 }

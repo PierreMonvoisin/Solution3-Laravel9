@@ -14,10 +14,10 @@ function calculateAverages(timesList) {
         }
     }
 
-    [Ao5, Ao12] = formatNullTimes([Ao5, Ao12]);
+    displayTime(Ao5, AO5_DISPLAY);
+    displayTime(Ao12, AO12_DISPLAY);
 
-    displayTime(Ao5, Ao5Display);
-    displayTime(Ao12, Ao12Display);
+    return [Ao5, Ao12];
 }
 function calculateAverage(timesArray) {
     const [maxTime, minTime] = [Math.max(...timesArray), Math.min(...timesArray)];
@@ -41,8 +41,6 @@ function calculateAverage(timesArray) {
     return Math.floor(sum / filteredArray.length);
 }
 
-function formatNullTimes(averages) {
-    return averages.map(function (average) {
-        return average === 0 ? '--' : average;
-    });
+function formatNullTime(average) {
+    return average === 0 ? '--' : average;
 }
