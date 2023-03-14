@@ -96,7 +96,7 @@ function storeSolve(solve) {
 // Events listeners
 let timerStatus = STATUS_READY;
 let timerHold;
-// Toggle Timer on click or spacebar press
+// Toggle Timer on spacebar press
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();

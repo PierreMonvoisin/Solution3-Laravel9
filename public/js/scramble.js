@@ -3,7 +3,7 @@ let currentScramble = '';
 
 // Methods
 function generateScramble() {
-    // Constant
+    // Constants
     const scrambleLength =
         Math.floor(
             Math.random() * (MAX_LENGTH - MIN_LENGTH + 1)
