@@ -18,7 +18,20 @@ class Solves extends Model
         'user_id',
         'scramble',
         'time',
-        'Ao5',
-        'Ao12',
+        'average_of_5',
+        'average_of_12',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'user_id' => 'integer',
+        'scramble' => 'string',
+        'time' => 'integer',
+        'average_of_5' => 'integer',
+        'average_of_12' => 'integer',
     ];
 }
