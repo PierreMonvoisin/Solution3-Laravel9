@@ -72,26 +72,37 @@ function recordTime(timeInMilli) {
         'average_of_12': Ao12,
     }
 
-    storeSolve(solve);
+    storeSolve(solve)
+        .then(function(success) {
+            console.log(success);
+        })
+        .catch(function(errors) {
+            // handle errors
+        });
 }
 
 function storeSolve(solve) {
-    $.ajax({
-        url: '/solves',
-        method: 'POST',
-        data: {
-            solve: solve,
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(jqXHR) {
-            console.error('Status:', jqXHR.status);
-            console.error('Message:', jqXHR.responseJSON.message);
-            console.error('Errors:', jqXHR.responseJSON.errors);
-        }
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: '/solves',
+            method: 'POST',
+            data: {
+                solve: solve,
+            },
+            success: function(response) {
+                resolve(response.solve);
+            },
+            error: function(jqXHR) {
+                console.error('Status:', jqXHR.status);
+                console.error('Message:', jqXHR.responseJSON.message);
+                console.error('Errors:', jqXHR.responseJSON.errors);
+
+                reject(jqXHR.responseJSON.errors);
+            }
+        });
     });
 }
+
 
 // Events listeners
 let timerStatus = STATUS_READY;
