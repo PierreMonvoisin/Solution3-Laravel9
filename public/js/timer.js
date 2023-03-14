@@ -68,22 +68,16 @@ function recordTime(timeInMilli) {
         'user_id': USER_ID,
         'scramble': currentScramble,
         'time': timeInMilli,
-        'Ao5': Ao5,
-        'Ao12': Ao12,
+        'average_of_5': Ao5,
+        'average_of_12': Ao12,
     }
 
     storeSolve(solve);
 }
 
 function storeSolve(solve) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     $.ajax({
-        url: '/solves/store',
+        url: '/solves',
         method: 'POST',
         data: {
             solve: solve,
@@ -91,8 +85,10 @@ function storeSolve(solve) {
         success: function(response) {
             console.log(response);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error(textStatus, errorThrown);
+        error: function(jqXHR) {
+            console.error('Status:', jqXHR.status);
+            console.error('Message:', jqXHR.responseJSON.message);
+            console.error('Errors:', jqXHR.responseJSON.errors);
         }
     });
 }

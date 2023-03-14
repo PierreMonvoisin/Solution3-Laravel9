@@ -21,8 +21,8 @@ return new class extends Migration
                 ->constrained('users');
             $table->string('scramble');
             $table->integer('time');
-            $table->integer('average_of_5');
-            $table->integer('average_of_12');
+            $table->integer('average_of_5')->nullable();
+            $table->integer('average_of_12')->nullable();
             $table->timestamps();
         });
     }

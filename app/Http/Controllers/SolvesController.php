@@ -35,7 +35,7 @@ class SolvesController extends Controller
      */
     public function store(Request $request)
     {
-        return dump($request);
+        return Solves::create($request->solve);
     }
 
     /**
