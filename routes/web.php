@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SolvesController;
+use App\Http\Controllers\TimerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,7 @@ use App\Http\Controllers\SolvesController;
 |
 */
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('index');
-    })->name('index');
+    Route::get('/', [TimerController::class, 'index'])->name('index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -21,8 +21,11 @@ return new class extends Migration
                 ->constrained('users');
             $table->string('scramble');
             $table->integer('time');
+            $table->string('time_formatted');
             $table->integer('average_of_5')->nullable();
+            $table->string('average_of_5_formatted')->nullable();
             $table->integer('average_of_12')->nullable();
+            $table->string('average_of_12_formatted')->nullable();
             $table->timestamps();
         });
     }

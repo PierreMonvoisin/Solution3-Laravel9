@@ -18,8 +18,11 @@ class Solves extends Model
         'user_id',
         'scramble',
         'time',
+        'time_formatted',
         'average_of_5',
+        'average_of_5_formatted',
         'average_of_12',
+        'average_of_12_formatted',
     ];
 
     /**
@@ -31,7 +34,10 @@ class Solves extends Model
         'user_id' => 'integer',
         'scramble' => 'string',
         'time' => 'integer',
+        'time_formatted' => 'string',
         'average_of_5' => 'integer',
+        'average_of_5_formatted' => 'string',
         'average_of_12' => 'integer',
+        'average_of_12_formatted' => 'string',
     ];
 }

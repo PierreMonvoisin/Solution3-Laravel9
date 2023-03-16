@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the solves of the user
+     */
+    public function solves()
+    {
+        return $this->hasMany(Solves::class);
+    }
 }

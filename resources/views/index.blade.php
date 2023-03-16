@@ -9,7 +9,7 @@
                     <div id="Ao12-message" class="text-xl">Average of 12 : <span id="Ao12">--</span></div>
                 </div>
                 <div class="p-6 text-gray-900 text-center">
-                    @include('components.solves.index')
+                    @include('components.solves.table')
                 </div>
             </div>
         </div>

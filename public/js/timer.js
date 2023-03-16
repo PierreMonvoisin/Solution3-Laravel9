@@ -68,8 +68,11 @@ function recordTime(timeInMilli) {
         'user_id': USER_ID,
         'scramble': currentScramble,
         'time': timeInMilli,
+        'time_formatted': stringifyTime(formatTime(timeInMilli)),
         'average_of_5': Ao5,
+        'average_of_5_formatted': stringifyTime(formatTime(Ao5)),
         'average_of_12': Ao12,
+        'average_of_12_formatted': stringifyTime(formatTime(Ao12)),
     }
 
     storeSolve(solve)
