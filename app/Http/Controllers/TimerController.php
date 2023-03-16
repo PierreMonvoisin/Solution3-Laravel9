@@ -19,4 +19,5 @@ class TimerController extends Controller
         return view('index', [
             'user' => $user,
         ]);
-    }}
+    }
+}
