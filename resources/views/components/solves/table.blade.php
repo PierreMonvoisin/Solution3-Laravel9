@@ -13,9 +13,9 @@ $tdClasses = 'py-1 border';
     </thead>
     <tbody>
         @if($user->solves->isNotEmpty())
-            @foreach($user->solves as $solve)
+            @foreach($user->solves->reverse() as $solve)
                 <tr>
-                    <td class="{{ $tdClasses }}">{{ $loop->iteration }}</td>
+                    <td class="{{ $tdClasses }}">{{ $user->solves->count() - $loop->iteration + 1 }}</td>
                     <td class="{{ $tdClasses }}">{{ $solve->time_formatted }}</td>
                     <td class="{{ $tdClasses }}">{{
                         $solve->average_of_5 !== 0 ?
@@ -30,7 +30,7 @@ $tdClasses = 'py-1 border';
                 </tr>
             @endforeach
         @else
-            <tr>
+            <tr id="emptyTableMessage">
                 <td colspan="4" class="{{ $tdClasses }}">No solves</td>
             </tr>
         @endif
