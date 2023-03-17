@@ -32,5 +32,6 @@
         <script src="{{ asset('js/timer.js') }}"></script>
         <script src="{{ asset('js/averages.js') }}"></script>
         <script src="{{ asset('js/scramble.js') }}"></script>
+        <script src="{{ asset('js/solves.js') }}"></script>
     </x-slot>
 </x-app-layout>

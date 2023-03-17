@@ -2,7 +2,7 @@
 $thClasses = 'py-2 text-xl font-medium font-semibold uppercase tracking-wider border';
 $tdClasses = 'py-1 border';
 @endphp
-<table class="mx-auto" style="width: 50%;">
+<table class="mx-auto" style="width: 50%;" id="solvesTable">
     <thead>
         <tr>
             <th scope="col" class="{{ $thClasses }}">N°</th>
@@ -12,20 +12,27 @@ $tdClasses = 'py-1 border';
         </tr>
     </thead>
     <tbody>
-        @foreach($user->solves as $solve)
+        @if($user->solves->isNotEmpty())
+            @foreach($user->solves as $solve)
+                <tr>
+                    <td class="{{ $tdClasses }}">{{ $loop->iteration }}</td>
+                    <td class="{{ $tdClasses }}">{{ $solve->time_formatted }}</td>
+                    <td class="{{ $tdClasses }}">{{
+                        $solve->average_of_5 !== 0 ?
+                            $solve->average_of_5_formatted :
+                            '--'
+                    }}</td>
+                    <td class="{{ $tdClasses }}">{{
+                        $solve->average_of_12 !== 0 ?
+                            $solve->average_of_12_formatted :
+                            '--'
+                    }}</td>
+                </tr>
+            @endforeach
+        @else
             <tr>
-                <td class="{{ $tdClasses }}">{{ $solve->id }}</td>
-                <td class="{{ $tdClasses }}">{{ $solve->time_formatted }}</td>
-                <td class="{{ $tdClasses }}">{{
-                    $solve->average_of_5 !== 0 ?
-                        $solve->average_of_5_formatted :
-                        '--'
-                }}</td>
-                <td class="{{ $tdClasses }}">{{
-                    $solve->average_of_12 !== 0 ?
-                        $solve->average_of_12_formatted :
-                        '--'
-                }}</td>            </tr>
-        @endforeach
+                <td colspan="4" class="{{ $tdClasses }}">No solves</td>
+            </tr>
+        @endif
     </tbody>
 </table>

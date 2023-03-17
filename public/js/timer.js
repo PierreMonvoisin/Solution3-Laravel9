@@ -77,7 +77,7 @@ function recordTime(timeInMilli) {
 
     storeSolve(solve)
         .then(function(success) {
-            console.log(success);
+            displayNewSolve(success);
         })
         .catch(function(errors) {
             // handle errors
