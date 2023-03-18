@@ -7,24 +7,28 @@ let timer;
 let timePassed = 0;
 
 // Methods
-function startTimer() {
+function startTimer()
+{
     startTime = Date.now();
     timer = setInterval(updateTime, timerTimeout);
 }
 
-function stopTimer() {
+function stopTimer()
+{
     clearInterval(timer);
     recordTime(timePassed);
     generateAndDisplayScramble();
 }
 
-function updateTime() {
+function updateTime()
+{
     timePassed = Date.now() - startTime;
 
     displayTime(timePassed, TIMER_DISPLAY);
 }
 
-function formatTime(milliseconds) {
+function formatTime(milliseconds)
+{
     let seconds = milliseconds / 1000;
     let minutes = Math.floor(seconds / 60);
     let hours = Math.floor(seconds / 3600);
@@ -35,7 +39,8 @@ function formatTime(milliseconds) {
     return [hours, minutes, seconds];
 }
 
-function stringifyTime([hours, minutes, seconds]) {
+function stringifyTime([hours, minutes, seconds])
+{
     let displayText = '';
     if (hours > 0) {
         displayText += `${hours.toString().padStart(2, '0')}:`;
@@ -46,7 +51,8 @@ function stringifyTime([hours, minutes, seconds]) {
     return displayText + seconds.toFixed(3).padStart(6, '0');
 }
 
-function displayTime(time, location) {
+function displayTime(time, location)
+{
     if (location) {
         const timeString =
             time !== 0 ?
@@ -59,7 +65,8 @@ function displayTime(time, location) {
     }
 }
 
-function recordTime(timeInMilli) {
+function recordTime(timeInMilli)
+{
     timesStorage.push(timeInMilli);
 
     let [Ao5, Ao12] = calculateAverages(timesStorage);
@@ -76,26 +83,27 @@ function recordTime(timeInMilli) {
     }
 
     storeSolve(solve)
-        .then(function(success) {
+        .then(function (success) {
             displayNewSolve(success);
         })
-        .catch(function(errors) {
+        .catch(function (errors) {
             // handle errors
         });
 }
 
-function storeSolve(solve) {
-    return new Promise(function(resolve, reject) {
+function storeSolve(solve)
+{
+    return new Promise(function (resolve, reject) {
         $.ajax({
             url: '/solves',
             method: 'POST',
             data: {
                 solve: solve,
             },
-            success: function(response) {
+            success: function (response) {
                 resolve(response.solve);
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 console.error('Status:', jqXHR.status);
                 console.error('Message:', jqXHR.responseJSON.message);
                 console.error('Errors:', jqXHR.responseJSON.errors);
@@ -111,7 +119,7 @@ function storeSolve(solve) {
 let timerStatus = STATUS_READY;
 let timerHold;
 // Toggle Timer on spacebar press
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.code === 'Space') {
         event.preventDefault();
         // If timer is idle
@@ -119,7 +127,7 @@ document.addEventListener('keydown', function(event) {
             timerStatus = STATUS_HOLDING;
             TIMER_DISPLAY.style.color = 'red';
             // Wait for timer to be set
-            timerHold = setTimeout(function(){
+            timerHold = setTimeout(function () {
                 timerStatus = STATUS_SET;
                 TIMER_DISPLAY.style.color = 'green';
             }, HOLD_PERIOD);
@@ -149,11 +157,12 @@ document.addEventListener('keyup', function (event) {
     }
 })
 // Display empty time on page load
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     displayTime(0, TIMER_DISPLAY);
     generateAndDisplayScramble();
 });
-function toggleTimer() {
+function toggleTimer()
+{
     if (timerStatus !== STATUS_RUNNING) {
         startTimer();
         timerStatus = STATUS_RUNNING;

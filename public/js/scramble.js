@@ -2,7 +2,8 @@
 let currentScramble = '';
 
 // Methods
-function generateScramble() {
+function generateScramble()
+{
     // Constants
     const scrambleLength =
         Math.floor(
@@ -16,7 +17,8 @@ function generateScramble() {
     let penultimateMove = '';
 
     // Methods
-    function getRandomMove() {
+    function getRandomMove()
+    {
         return MOVES[Math.floor(Math.random() * MOVES_LENGTH)];
     }
 
@@ -47,14 +49,17 @@ function generateScramble() {
     return scramble.trim();
 }
 
-function displayScramble(scramble) {
+function displayScramble(scramble)
+{
     SCRAMBLE_DISPLAY.textContent = scramble;
 }
 
-function generateAndDisplayScramble() {
+function generateAndDisplayScramble()
+{
     displayScramble(generateScramble());
 }
 
-function areOpposites(currentMove, previousMove) {
+function areOpposites(currentMove, previousMove)
+{
     return currentMove === OPPOSITES[previousMove];
 }

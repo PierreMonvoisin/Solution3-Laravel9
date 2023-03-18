@@ -1,7 +1,8 @@
 const emptyTableMessage = document.querySelector('#emptyTableMessage');
 const tdClasses = SOLVES_TABLE.querySelector('tr:first-of-type td:first-of-type').getAttribute('class');
 
-function displayNewSolve (solve) {
+function displayNewSolve(solve)
+{
     const lastTd = SOLVES_TABLE.querySelector('tr:first-of-type td:first-of-type');
     const row = document.createElement('tr');
 
@@ -25,7 +26,8 @@ function displayNewSolve (solve) {
     SOLVES_TABLE.prepend(row);
 }
 
-function createCell(text) {
+function createCell(text)
+{
     const cell = document.createElement('td');
     cell.textContent = text;
     cell.setAttribute('class', tdClasses);

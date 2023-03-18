@@ -1,4 +1,5 @@
-function calculateAverages(timesList) {
+function calculateAverages(timesList)
+{
     let Ao5 = 0;
     let Ao12 = 0;
 
@@ -19,28 +20,24 @@ function calculateAverages(timesList) {
 
     return [Ao5, Ao12];
 }
-function calculateAverage(timesArray) {
+function calculateAverage(timesArray)
+{
     const [maxTime, minTime] = [Math.max(...timesArray), Math.min(...timesArray)];
 
-    const filteredArray =
-        timesArray.filter(num =>
-            num !== maxTime &&
-            num !== minTime
-        );
+    const filteredArray = timesArray.filter(num => {
+        return num !== maxTime && num !== minTime;
+    });
 
     if (filteredArray.length === 0) {
         return 0;
     }
 
-    const sum =
-        filteredArray.reduce((acc, curr) =>
-            acc + curr,
-            0
-        );
+    const sum = filteredArray.reduce((acc, curr) => acc + curr, 0);
 
     return Math.floor(sum / filteredArray.length);
 }
 
-function formatNullTime(average) {
+function formatNullTime(average)
+{
     return average === 0 ? '--' : average;
 }
