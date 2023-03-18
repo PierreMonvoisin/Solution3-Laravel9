@@ -33,7 +33,3 @@ const TIMER_DISPLAY = document.querySelector('#timer');
 const AO5_DISPLAY = document.querySelector('#Ao5');
 const AO12_DISPLAY = document.querySelector('#Ao12');
 const SOLVES_TABLE = document.querySelector('#solvesTable');
-
-
-
-
