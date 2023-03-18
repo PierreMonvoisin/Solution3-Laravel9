@@ -68,30 +68,44 @@ function recordTime(timeInMilli) {
         'user_id': USER_ID,
         'scramble': currentScramble,
         'time': timeInMilli,
+        'time_formatted': stringifyTime(formatTime(timeInMilli)),
         'average_of_5': Ao5,
+        'average_of_5_formatted': stringifyTime(formatTime(Ao5)),
         'average_of_12': Ao12,
+        'average_of_12_formatted': stringifyTime(formatTime(Ao12)),
     }
 
-    storeSolve(solve);
+    storeSolve(solve)
+        .then(function(success) {
+            displayNewSolve(success);
+        })
+        .catch(function(errors) {
+            // handle errors
+        });
 }
 
 function storeSolve(solve) {
-    $.ajax({
-        url: '/solves',
-        method: 'POST',
-        data: {
-            solve: solve,
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(jqXHR) {
-            console.error('Status:', jqXHR.status);
-            console.error('Message:', jqXHR.responseJSON.message);
-            console.error('Errors:', jqXHR.responseJSON.errors);
-        }
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: '/solves',
+            method: 'POST',
+            data: {
+                solve: solve,
+            },
+            success: function(response) {
+                resolve(response.solve);
+            },
+            error: function(jqXHR) {
+                console.error('Status:', jqXHR.status);
+                console.error('Message:', jqXHR.responseJSON.message);
+                console.error('Errors:', jqXHR.responseJSON.errors);
+
+                reject(jqXHR.responseJSON.errors);
+            }
+        });
     });
 }
+
 
 // Events listeners
 let timerStatus = STATUS_READY;
