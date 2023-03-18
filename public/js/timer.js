@@ -1,7 +1,4 @@
 // Proprieties
-const timerTimeout = 1;
-const timesStorage = [];
-
 let startTime = 0;
 let timer;
 let timePassed = 0;
@@ -10,7 +7,7 @@ let timePassed = 0;
 function startTimer()
 {
     startTime = Date.now();
-    timer = setInterval(updateTime, timerTimeout);
+    timer = setInterval(updateTime, TIMER_TIMEOUT);
 }
 
 function stopTimer()
@@ -67,7 +64,7 @@ function displayTime(time, location)
 
 function recordTime(timeInMilli)
 {
-    timesStorage.push(timeInMilli);
+    TIMES_SESSION.push(timeInMilli);
 
     let [Ao5, Ao12] = calculateAverages(timesStorage);
 

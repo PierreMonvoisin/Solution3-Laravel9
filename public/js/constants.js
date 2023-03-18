@@ -1,4 +1,7 @@
 // Timer
+const TIMES_SESSION = [];
+const TIMER_TIMEOUT = 1;
+
 const STATUS_READY = 'ready';
 const STATUS_HOLDING = 'holding';
 const STATUS_SET = 'set';
