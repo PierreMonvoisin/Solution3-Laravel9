@@ -66,7 +66,7 @@ function recordTime(timeInMilli)
 {
     TIMES_SESSION.push(timeInMilli);
 
-    let [Ao5, Ao12] = calculateAverages(timesStorage);
+    let [Ao5, Ao12] = calculateAverages(TIMES_SESSION);
 
     let solve = {
         'user_id': USER_ID,
@@ -83,7 +83,7 @@ function recordTime(timeInMilli)
         .then(function (success) {
             displayNewSolve(success);
         })
-        .catch(function (errors) {
+        .catch(function (response, errors) {
             // handle errors
         });
 }
@@ -96,16 +96,18 @@ function storeSolve(solve)
             method: 'POST',
             data: {
                 solve: solve,
+                times_session: TIMES_SESSION,
             },
             success: function (response) {
+                console.log(response);
                 resolve(response.solve);
             },
-            error: function (jqXHR) {
+            error: function (response, jqXHR) {
                 console.error('Status:', jqXHR.status);
                 console.error('Message:', jqXHR.responseJSON.message);
                 console.error('Errors:', jqXHR.responseJSON.errors);
 
-                reject(jqXHR.responseJSON.errors);
+                reject(response, jqXHR.responseJSON.errors);
             }
         });
     });

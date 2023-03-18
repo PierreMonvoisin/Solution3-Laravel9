@@ -18,16 +18,6 @@ class SolvesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,11 +26,16 @@ class SolvesController extends Controller
     public function store(Request $request)
     {
         $solve = Solves::create($request->solve);
+        $times_session = serialize($request->times_session);
 
-        return response()->json([
-            'success' => true,
+        $response = [
             'solve' => $solve,
-        ]);
+            'times_session' => $times_session,
+        ];
+
+        $response['success'] = (bool)$solve;
+
+        return response()->json($response);
     }
 
     /**
@@ -50,17 +45,6 @@ class SolvesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
