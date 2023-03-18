@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Solution3">
+    <description>Code Sniffer Standards</description>
+    <config name="standard" value="PSR12"/>
+    <file>app/Http/**/*.php</file>
+    <!--    <fileList>app/Models/*</fileList>-->
+<!--    <fileList>public/js/*</fileList>-->
+<!--    <fileList>resources/*</fileList>-->
+<!--    <fileList>routes/*</fileList>-->
+</ruleset>
