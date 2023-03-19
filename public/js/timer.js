@@ -99,7 +99,6 @@ function storeSolve(solve)
                 times_history: TIMES_HISTORY,
             },
             success: function (response) {
-                console.log(response);
                 resolve(response.solve);
             },
             error: function (response, jqXHR) {
@@ -157,8 +156,11 @@ document.addEventListener('keyup', function (event) {
 })
 // Display empty time on page load
 window.addEventListener('load', function () {
+    // Set the timer to 0
     displayTime(0, TIMER_DISPLAY);
     generateAndDisplayScramble();
+    // Fetch from database time history of the user and set it in local constante
+    fetchTimeHistory();
 });
 function toggleTimer()
 {

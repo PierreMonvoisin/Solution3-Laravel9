@@ -16,6 +16,7 @@
     </div>
 
     <x-slot name="scripts">
+{{--        @dd($user->timesSessions->times_history)--}}
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $.ajaxSetup({
@@ -28,6 +29,13 @@
         <script src="{{ asset('js/constants.js') }}"></script>
         <script>
             const USER_ID = {{ auth()->user()->id }};
+        </script>
+        <script>
+            const timesHistoryFromDatabase = '{{
+                $user->timesSessions ?
+                    $user->timesSessions->times_history :
+                    ''
+            }}';
         </script>
         <script src="{{ asset('js/timer.js') }}"></script>
         <script src="{{ asset('js/averages.js') }}"></script>
