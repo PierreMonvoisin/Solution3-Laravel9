@@ -64,9 +64,9 @@ function displayTime(time, location)
 
 function recordTime(timeInMilli)
 {
-    TIMES_SESSION.push(timeInMilli);
+    TIMES_HISTORY.push(timeInMilli);
 
-    let [Ao5, Ao12] = calculateAverages(TIMES_SESSION);
+    let [Ao5, Ao12] = calculateAverages(TIMES_HISTORY);
 
     let solve = {
         'user_id': USER_ID,
@@ -96,7 +96,10 @@ function storeSolve(solve)
             method: 'POST',
             data: {
                 solve: solve,
-                times_session: TIMES_SESSION,
+                times_session: {
+                    'user_id': USER_ID,
+                    'times_history': TIMES_HISTORY,
+                },
             },
             success: function (response) {
                 console.log(response);
@@ -108,7 +111,7 @@ function storeSolve(solve)
                 console.error('Errors:', jqXHR.responseJSON.errors);
 
                 reject(response, jqXHR.responseJSON.errors);
-            }
+            },
         });
     });
 }

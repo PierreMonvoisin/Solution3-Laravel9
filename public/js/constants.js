@@ -1,5 +1,5 @@
 // Timer
-const TIMES_SESSION = [];
+const TIMES_HISTORY = [];
 const TIMER_TIMEOUT = 1;
 
 const STATUS_READY = 'ready';

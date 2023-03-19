@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Solves;
 
@@ -18,21 +19,27 @@ class SolvesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created solve in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  Request $request
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
-        $solve = Solves::create($request->solve);
-        $times_session = serialize($request->times_session);
+        // Serialize the times_history array
+        $times_session = $request->times_session;
+        $times_session['times_history'] = serialize($times_session['times_history']);
 
+        // Store solve in database
+        $solve = Solves::create($request->solve);
+
+        // Build response
         $response = [
             'solve' => $solve,
             'times_session' => $times_session,
         ];
 
+        // Get response status
         $response['success'] = (bool)$solve;
 
         return response()->json($response);
@@ -52,7 +59,7 @@ class SolvesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
