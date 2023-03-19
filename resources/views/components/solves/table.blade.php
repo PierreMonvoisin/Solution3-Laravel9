@@ -13,7 +13,12 @@ $tdClasses = 'py-1 border';
     </thead>
     <tbody>
         @if($user->solves->isNotEmpty())
-            @foreach($user->solves->reverse() as $solve)
+            @php
+                $solves = $user->solves()->orderBy('created_at', 'desc')->paginate(10);
+                $leftButtonVisible = false;
+                $rightButtonVisible = false;
+            @endphp
+            @foreach($solves as $solve)
                 <tr>
                     <td class="{{ $tdClasses }}">{{ $user->solves->count() - $loop->iteration + 1 }}</td>
                     <td class="{{ $tdClasses }}">{{ $solve->time_formatted }}</td>
@@ -28,6 +33,22 @@ $tdClasses = 'py-1 border';
                             '--'
                     }}</td>
                 </tr>
+
+                <!-- Link to the previous page if it exists -->
+                @if($solves->previousPageUrl() && ! $leftButtonVisible)
+                    @php $leftButtonVisible = true; @endphp
+                    <a href="{{ $solves->previousPageUrl() }}">
+                        Previous Page
+                    </a>
+                @endif
+
+                <!-- Link to the next page if it exists -->
+                @if($solves->nextPageUrl() && ! $rightButtonVisible)
+                    @php $rightButtonVisible = true; @endphp
+                    <a href="{{ $solves->nextPageUrl() }}">
+                        Next Page
+                    </a>
+                @endif
             @endforeach
         @else
             <tr id="emptyTableMessage">
