@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TimesSessions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Solves;
@@ -27,11 +28,16 @@ class SolvesController extends Controller
     public function store(Request $request)
     {
         // Serialize the times_history array
-        $times_session = $request->times_session;
-        $times_session['times_history'] = serialize($times_session['times_history']);
+        $times_session_data = $request->times_session;
+        $times_session_data['times_history'] = serialize($times_session_data['times_history']);
 
         // Store solve in database
         $solve = Solves::create($request->solve);
+        // Store or update times session
+        $times_session = TimesSessions::firstOrCreate(
+            ['user_id' => $times_session_data['user_id']],
+            ['times_history' => serialize($times_session_data)],
+        );
 
         // Build response
         $response = [

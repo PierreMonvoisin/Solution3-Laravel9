@@ -51,4 +51,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Solves::class);
     }
+
+    /**
+     * Get the times session of the user
+     */
+    public function timesSession()
+    {
+        return $this->hasOne(TimesSessions::class);
+    }
 }
