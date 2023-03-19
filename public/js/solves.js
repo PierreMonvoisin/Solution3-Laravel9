@@ -35,7 +35,8 @@ function createCell(text)
     return cell;
 }
 
-function fetchTimeHistory() {
+function fetchTimeHistory()
+{
     if (timesHistoryFromDatabase !== '') {
         const times_history = JSON.parse(timesHistoryFromDatabase);
         for (let i = 0; i < times_history.length; i++) {
