@@ -14,9 +14,9 @@ $tdClasses = 'py-1 border';
     <tbody>
         @if($user->solves->isNotEmpty())
             @php
-                $solves = $user->solves()->orderBy('created_at', 'desc')->paginate(10);
-                $leftButtonVisible = false;
-                $rightButtonVisible = false;
+                $solves = $user->solves()
+                    ->orderBy('created_at', 'desc')
+                    ->get();
             @endphp
             @foreach($solves as $solve)
                 <tr>
@@ -33,22 +33,6 @@ $tdClasses = 'py-1 border';
                             '--'
                     }}</td>
                 </tr>
-
-                <!-- Link to the previous page if it exists -->
-                @if($solves->previousPageUrl() && ! $leftButtonVisible)
-                    @php $leftButtonVisible = true; @endphp
-                    <a href="{{ $solves->previousPageUrl() }}">
-                        Previous Page
-                    </a>
-                @endif
-
-                <!-- Link to the next page if it exists -->
-                @if($solves->nextPageUrl() && ! $rightButtonVisible)
-                    @php $rightButtonVisible = true; @endphp
-                    <a href="{{ $solves->nextPageUrl() }}">
-                        Next Page
-                    </a>
-                @endif
             @endforeach
         @else
             <tr id="emptyTableMessage">

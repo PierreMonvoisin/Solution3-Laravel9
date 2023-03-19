@@ -16,11 +16,9 @@ class TimerController extends Controller
     {
         $user = $request->user();
 
-        if ($user->timesSessions) {
-            $times_history = unserialize($user->timesSessions->times_history);
-            $times_history_to_string = '[' . implode(', ', $times_history) . ']';
-            $user->timesSessions->times_history = $times_history_to_string;
-        }
+        $user->timesSessions->times_history = $user->timesSessions
+            ? '[' . implode(', ', unserialize($user->timesSessions->times_history)) . ']'
+            : '[]';
 
         return view('index', [
             'user' => $user,
