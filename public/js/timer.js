@@ -96,10 +96,7 @@ function storeSolve(solve)
             method: 'POST',
             data: {
                 solve: solve,
-                times_session: {
-                    'user_id': USER_ID,
-                    'times_history': TIMES_HISTORY,
-                },
+                times_history: TIMES_HISTORY,
             },
             success: function (response) {
                 console.log(response);

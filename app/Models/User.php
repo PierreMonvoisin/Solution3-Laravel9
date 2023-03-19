@@ -55,7 +55,7 @@ class User extends Authenticatable
     /**
      * Get the times session of the user
      */
-    public function timesSession()
+    public function timesSessions()
     {
         return $this->hasOne(TimesSessions::class);
     }
