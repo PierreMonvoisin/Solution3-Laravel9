@@ -27,7 +27,7 @@
 
         <script src="{{ asset('js/constants.js') }}"></script>
         <script>
-            const USER_ID = {{ auth()->user()->id }};
+            const USER_ID = '{{ auth()->user()->id }}';
         </script>
         <script>
             const timesHistoryFromDatabase = '{{

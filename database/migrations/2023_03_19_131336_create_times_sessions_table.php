@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('times_sessions', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(Str::uuid());
-            $table->foreignId('user_id')
+            $table->foreignUuid('user_id')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete()
                 ->constrained('users');
