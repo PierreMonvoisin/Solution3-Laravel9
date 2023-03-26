@@ -1,7 +1,4 @@
 // Proprieties
-const timerTimeout = 1;
-const timesStorage = [];
-
 let startTime = 0;
 let timer;
 let timePassed = 0;
@@ -10,7 +7,7 @@ let timePassed = 0;
 function startTimer()
 {
     startTime = Date.now();
-    timer = setInterval(updateTime, timerTimeout);
+    timer = setInterval(updateTime, TIMER_TIMEOUT);
 }
 
 function stopTimer()
@@ -67,9 +64,9 @@ function displayTime(time, location)
 
 function recordTime(timeInMilli)
 {
-    timesStorage.push(timeInMilli);
+    TIMES_HISTORY.push(timeInMilli);
 
-    let [Ao5, Ao12] = calculateAverages(timesStorage);
+    let [Ao5, Ao12] = calculateAverages(TIMES_HISTORY);
 
     let solve = {
         'user_id': USER_ID,
@@ -86,7 +83,7 @@ function recordTime(timeInMilli)
         .then(function (success) {
             displayNewSolve(success);
         })
-        .catch(function (errors) {
+        .catch(function (response, errors) {
             // handle errors
         });
 }
@@ -99,17 +96,18 @@ function storeSolve(solve)
             method: 'POST',
             data: {
                 solve: solve,
+                times_history: TIMES_HISTORY,
             },
             success: function (response) {
                 resolve(response.solve);
             },
-            error: function (jqXHR) {
+            error: function (response, jqXHR) {
                 console.error('Status:', jqXHR.status);
                 console.error('Message:', jqXHR.responseJSON.message);
                 console.error('Errors:', jqXHR.responseJSON.errors);
 
-                reject(jqXHR.responseJSON.errors);
-            }
+                reject(response, jqXHR.responseJSON.errors);
+            },
         });
     });
 }
@@ -158,8 +156,11 @@ document.addEventListener('keyup', function (event) {
 })
 // Display empty time on page load
 window.addEventListener('load', function () {
+    // Set the timer to 0
     displayTime(0, TIMER_DISPLAY);
     generateAndDisplayScramble();
+    // Fetch from database time history of the user and set it in local constante
+    fetchTimeHistory();
 });
 function toggleTimer()
 {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TimesSessions;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Solves;
 
@@ -18,29 +20,33 @@ class SolvesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created solve in storage.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  Request $request
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
-        $solve = Solves::create($request->solve);
+        // Serialize the times_history array
+        $times_history = serialize($request->times_history);
 
-        return response()->json([
-            'success' => true,
+        // Store solve in database
+        $solve = Solves::create($request->solve);
+        // Store or update times session
+        $times_session = TimesSessions::updateOrCreate(
+            ['user_id' => $request->user()->id],
+            ['times_history' => $times_history],
+        );
+
+        // Build response
+        $response = [
             'solve' => $solve,
-        ]);
+        ];
+
+        // Get response status
+        $response['success'] = $solve && $times_session;
+
+        return response()->json($response);
     }
 
     /**
@@ -55,20 +61,9 @@ class SolvesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

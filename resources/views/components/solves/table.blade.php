@@ -13,7 +13,12 @@ $tdClasses = 'py-1 border';
     </thead>
     <tbody>
         @if($user->solves->isNotEmpty())
-            @foreach($user->solves->reverse() as $solve)
+            @php
+                $solves = $user->solves()
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            @endphp
+            @foreach($solves as $solve)
                 <tr>
                     <td class="{{ $tdClasses }}">{{ $user->solves->count() - $loop->iteration + 1 }}</td>
                     <td class="{{ $tdClasses }}">{{ $solve->time_formatted }}</td>
