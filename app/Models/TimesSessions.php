@@ -25,7 +25,7 @@ class TimesSessions extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'user_id' => 'integer',
+        'user_id' => 'string',
         'times_history' => 'string',
     ];
 }
