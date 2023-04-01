@@ -29,4 +29,12 @@ class TimesSessions extends Model
         'user_id' => 'string',
         'times_history' => 'string',
     ];
+
+    /**
+     * Get the solves of the session
+     */
+    public function solves()
+    {
+        return $this->hasMany(Solves::class);
+    }
 }
