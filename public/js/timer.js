@@ -99,7 +99,7 @@ function storeSolve(solve)
                 times_history: TIMES_HISTORY,
             },
             success: function (response) {
-                console.log('Response:', response);
+                // console.log('Response:', response);
 
                 resolve(response.solve);
             },

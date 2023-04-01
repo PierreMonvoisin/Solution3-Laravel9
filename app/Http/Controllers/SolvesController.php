@@ -44,7 +44,6 @@ class SolvesController extends Controller
         // Build response
         $response = [
             'solve' => $solve,
-            'times_session' => $times_session,
         ];
 
         // Get response status
