@@ -99,12 +99,12 @@ function storeSolve(solve)
                 times_history: TIMES_HISTORY,
             },
             success: function (response) {
+                console.error('Response:', response);
+
                 resolve(response.solve);
             },
             error: function (response, jqXHR) {
-                console.error('Status:', jqXHR.status);
-                console.error('Message:', jqXHR.responseJSON.message);
-                console.error('Errors:', jqXHR.responseJSON.errors);
+                console.error('Response:', response);
 
                 reject(response, jqXHR.responseJSON.errors);
             },

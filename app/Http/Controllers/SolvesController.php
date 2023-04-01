@@ -30,17 +30,21 @@ class SolvesController extends Controller
         // Serialize the times_history array
         $times_history = serialize($request->times_history);
 
-        // Store solve in database
-        $solve = Solves::create($request->solve);
         // Store or update times session
         $times_session = TimesSessions::updateOrCreate(
             ['user_id' => $request->user()->id],
             ['times_history' => $times_history],
         );
 
+        $solveData = $request->solve;
+        $solveData['session_id'] = $times_session->id;
+        // Store solve in database
+        $solve = Solves::create($solveData);
+
         // Build response
         $response = [
             'solve' => $solve,
+            'times_session' => $times_session,
         ];
 
         // Get response status
