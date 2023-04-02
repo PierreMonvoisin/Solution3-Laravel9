@@ -60,7 +60,8 @@ function areOpposites(currentMove, previousMove)
     return currentMove === OPPOSITES[previousMove];
 }
 
-function getRandomChance() {
+function getRandomChance()
+{
     if (window.crypto) {
         const randomValues = new Uint32Array(1);
         window.crypto.getRandomValues(randomValues);
