@@ -19,6 +19,10 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete()
                 ->constrained('users');
+            $table->foreignUuid('session_id')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete()
+                ->constrained('times_sessions');
             $table->string('scramble');
             $table->integer('time');
             $table->string('time_formatted');

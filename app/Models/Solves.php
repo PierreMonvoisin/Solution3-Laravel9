@@ -16,6 +16,7 @@ class Solves extends Model
      */
     protected $fillable = [
         'user_id',
+        'session_id',
         'scramble',
         'time',
         'time_formatted',
@@ -31,7 +32,8 @@ class Solves extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'user_id' => 'integer',
+        'user_id' => 'string',
+        'session_id' => 'string',
         'scramble' => 'string',
         'time' => 'integer',
         'time_formatted' => 'string',
