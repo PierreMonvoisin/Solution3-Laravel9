@@ -6,6 +6,7 @@ use App\Models\TimesSessions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Solves;
+use Illuminate\Support\Str;
 
 class SolvesController extends Controller
 {
@@ -27,23 +28,34 @@ class SolvesController extends Controller
      */
     public function store(Request $request)
     {
+        $userId = $request->user()->id;
         // Serialize the times_history array
         $times_history = serialize($request->times_history);
 
         // Store or update times session
-        $times_session = TimesSessions::updateOrCreate(
-            ['user_id' => $request->user()->id],
-            ['times_history' => $times_history],
+        TimesSessions::updateOrCreate(
+            ['user_id' => $userId],
+            [
+                'times_history' => $times_history,
+            ],
         );
+        $times_session = TimesSessions::where('user_id', $userId)
+            ->latest()
+            ->first();
 
-        $solveData = $request->solve;
-        $solveData['session_id'] = $times_session->id;
-        // Store solve in database
-        $solve = Solves::create($solveData);
+        if ($times_session->id) {
+            $solveData = $request->solve;
+            $solveData['session_id'] = $times_session->id;
+            // Store solve in database
+            $solve = Solves::create($solveData);
+        } else {
+            $solve = false;
+        }
 
         // Build response
         $response = [
             'solve' => $solve,
+            'times_session' => $times_session,
         ];
 
         // Get response status

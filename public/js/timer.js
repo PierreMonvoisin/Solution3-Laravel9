@@ -104,7 +104,7 @@ function storeSolve(solve)
                 resolve(response.solve);
             },
             error: function (response, jqXHR) {
-                console.error('Response:', response);
+                // console.error('Response:', response);
 
                 reject(response, jqXHR.responseJSON.errors);
             },
