@@ -25,21 +25,23 @@ function generateScramble()
     for (let i = 0; i < scrambleLength; i++) {
         let move = getRandomMove();
 
-        while (move === previousMove || (areOpposites(move, previousMove) && move === penultimateMove)) {
+        while (
+            move === previousMove ||
+            (areOpposites(move, previousMove) && move === penultimateMove)
+        ) {
             move = getRandomMove();
         }
 
-        let randomChance = Number(Math.random().toFixed(3));
+        let randomChance = Math.random();
         if (DOUBLED_CHANCE > randomChance) {
             suffix = '2';
         } else if (PRIMED_CHANCE > randomChance) {
-            suffix = '\'';
+            suffix = "'";
         } else {
             suffix = '';
         }
 
         scramble += move + suffix + ' ';
-
         currentScramble = scramble;
 
         penultimateMove = previousMove;
