@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="py-2">
         <div class="max-w-fit px-2">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
-                <div class="p-6 text-gray-900 text-center" style="width: 25%">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex" style="height: 85vh; overflow-y: hidden">
+                <div class="p-6 text-gray-900 text-center" style="width: 25%; overflow-y: scroll">
                     @include('components.solves.table')
                 </div>
                 <div class="p-6 text-gray-900 text-center" style="width: 70%">
