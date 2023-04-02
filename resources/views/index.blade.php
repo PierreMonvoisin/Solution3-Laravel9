@@ -1,15 +1,15 @@
 <x-app-layout>
     <div class="py-2">
         <div class="max-w-fit px-2">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 text-center">
-                    <div id="scramble" style="font-size: x-large"></div>
-                    <h1 id="timer" class="py-4" style="font-size: xxx-large">00.000</h1>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
+                <div class="p-6 text-gray-900 text-center" style="width: 25%">
+                    @include('components.solves.table')
+                </div>
+                <div class="p-6 text-gray-900 text-center" style="width: 70%">
+                    <div id="scramble" class="mb-6" style="font-size: xx-large"></div>
+                    <h1 id="timer" class="py-4 mb-6" style="font-size: xxx-large">00.000</h1>
                     <div id="Ao5-message" class="text-xl">Average of 5 : <span id="Ao5">--</span></div>
                     <div id="Ao12-message" class="text-xl">Average of 12 : <span id="Ao12">--</span></div>
-                </div>
-                <div class="p-6 text-gray-900 text-center">
-                    @include('components.solves.table')
                 </div>
             </div>
         </div>

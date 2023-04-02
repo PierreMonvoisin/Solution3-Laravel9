@@ -2,7 +2,7 @@
 $thClasses = 'py-2 text-xl font-medium font-semibold uppercase tracking-wider border';
 $tdClasses = 'py-1 border';
 @endphp
-<table class="mx-auto" style="width: 50%;" id="solvesTable">
+<table id="solvesTable" style="width: 100%">
     <thead>
         <tr>
             <th scope="col" class="{{ $thClasses }}">N°</th>
