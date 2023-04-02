@@ -12,16 +12,17 @@ const HOLD_PERIOD = 350;
 // Scramble
 const MOVES = ['U', 'D', 'L', 'R', 'F', 'B'];
 const MOVES_LENGTH = MOVES.length;
+const SUFFIXES = ['', "'", '2'];
+const SUFFIXES_LENGTH = SUFFIXES.length;
+
 const OPPOSITES = {
     'U': 'D', 'D': 'U',
     'L': 'R', 'R': 'L',
     'F': 'B', 'B': 'F',
 };
+
 const MIN_LENGTH = 20;
 const MAX_LENGTH = 25;
-
-const PRIMED_CHANCE = 0.25;
-const DOUBLED_CHANCE = 0.125;
 
 // Solves
 const DATA_TO_DISPLAY = [

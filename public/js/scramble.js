@@ -12,14 +12,17 @@ function generateScramble()
 
     // Proprieties
     let scramble = '';
-    let suffix = '';
     let previousMove = '';
     let penultimateMove = '';
 
     // Methods
     function getRandomMove()
     {
-        return MOVES[Math.floor(Math.random() * MOVES_LENGTH)];
+        return MOVES[Math.floor(getRandomChance() * MOVES_LENGTH)];
+    }
+    function getRandomSuffix()
+    {
+        return SUFFIXES[Math.floor(getRandomChance() * SUFFIXES_LENGTH)];
     }
 
     for (let i = 0; i < scrambleLength; i++) {
@@ -32,21 +35,12 @@ function generateScramble()
             move = getRandomMove();
         }
 
-        let randomChance = Math.random();
-        if (DOUBLED_CHANCE > randomChance) {
-            suffix = '2';
-        } else if (PRIMED_CHANCE > randomChance) {
-            suffix = "'";
-        } else {
-            suffix = '';
-        }
-
-        scramble += move + suffix + ' ';
-        currentScramble = scramble;
+        scramble += move + getRandomSuffix() + ' ';
 
         penultimateMove = previousMove;
         previousMove = move;
     }
+    currentScramble = scramble;
 
     return scramble.trim();
 }
@@ -64,4 +58,14 @@ function generateAndDisplayScramble()
 function areOpposites(currentMove, previousMove)
 {
     return currentMove === OPPOSITES[previousMove];
+}
+
+function getRandomChance() {
+    if (window.crypto) {
+        const randomValues = new Uint32Array(1);
+        window.crypto.getRandomValues(randomValues);
+        return randomValues[0] / 4294967296;
+    } else {
+        return Math.random();
+    }
 }
