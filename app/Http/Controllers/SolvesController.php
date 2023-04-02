@@ -35,9 +35,7 @@ class SolvesController extends Controller
         // Store or update times session
         TimesSessions::updateOrCreate(
             ['user_id' => $userId],
-            [
-                'times_history' => $times_history,
-            ],
+            ['times_history' => $times_history],
         );
         $times_session = TimesSessions::where('user_id', $userId)
             ->latest()
